@@ -1,4 +1,9 @@
-﻿using System;
+﻿using FizzBuzz.RulesPattern;
+using FizzBuzz.SpecificationPattern;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 /**
  *
@@ -20,37 +25,50 @@ namespace FizzBuzz
 {
     public class FizzBuzzEngine
     {
-        public void Run(int limit = 100)
+        public List<string> ApplyRules(List<IRule<int>> rules, int limit = 100)
         {
-            for (int i = 1; i <= limit; i++)
-            {
-                string output = "";
-                if (i % 3 == 0)
-                {
-                    output += "Fizz";
-                }
-                
-                if (i % 5 == 0)
-                {
-                    output += "Buzz";
-                }
+            List<string> ls = new List<string>();
 
-                if (string.IsNullOrEmpty(output))
+            for (int number = 1; number < limit; number++)
+            {
+                StringBuilder output = new StringBuilder();
+                foreach (var rule in rules.Where(x => x.IsMatch(number)))
                 {
-                    output = i.ToString();
+                    output.Append(rule.Apply());
                 }
-                
-                Console.WriteLine("{0}: {1}", i, output);
+                var res = $"{number}: { (output.Length == 0 ? number.ToString() : output.ToString())}";
+                ls.Add(res);
             }
+
+            return ls;
+        }
+
+        public void PrintRulesResults(List<string> output)
+        {
+            output.ForEach(x => Console.WriteLine(x));
         }
     }
-    
+
     public class Program
     {
+        private List<IRule<int>> CreateRules()
+        {
+            return new List<IRule<int>>
+            {
+                new FizzRule(),
+                new BuzzRule(),
+                new BarRule(),
+                new FooRule()
+            };
+        }
         public static void Main(string[] args)
         {
+            Program pr = new Program();
             FizzBuzzEngine engine = new FizzBuzzEngine();
-            engine.Run();
+            var rules = pr.CreateRules();
+            var output = engine.ApplyRules(rules, 15);
+            engine.PrintRulesResults(output);
+            Console.ReadLine();
         }
     }
 }
