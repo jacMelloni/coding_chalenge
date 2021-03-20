@@ -4,9 +4,10 @@ namespace FizzBuzz.RulesPattern
 {
     public class BuzzRule : IRule<int>
     {
+        private static readonly string value = "Buzz";
         public string Apply()
         {
-            return "Buzz";
+            return value;
         }
 
         public bool IsMatch(int number)

@@ -2,9 +2,10 @@
 {
     public class FizzRule : IRule<int>
     {
+        private static readonly string value = "Fizz";
         public string Apply()
         {
-            return "Fizz";
+            return value;
         }
 
         public bool IsMatch(int number)
