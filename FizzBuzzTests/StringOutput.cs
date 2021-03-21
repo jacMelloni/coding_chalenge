@@ -6,7 +6,7 @@ namespace FizzBuzzTests
     public class StringOutput : IOutput
     {
         private StringBuilder _str = new StringBuilder();
-        public StringBuilder Output =>  _str;
+        public string Output =>  _str.ToString();
         public void Print(string s)
         {
             _str.Append(s);

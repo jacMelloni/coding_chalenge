@@ -19,7 +19,7 @@ namespace FizzBuzzTests
             fizzBuzzEngine.PrintRulesResults(stringOutput, number);
             var output = stringOutput.Output;
 
-            var expected = output.ToString().Contains("Bar");
+            var expected = output.Contains("Bar");
             Assert.False(expected);
         }
 
@@ -42,7 +42,7 @@ namespace FizzBuzzTests
                 "Buzz"
             };
 
-            var res = output.ToString();
+            var res = output;
             foreach (var rule in ruleNames)
             {
                 Assert.Contains(rule, res);
