@@ -33,20 +33,9 @@ namespace FizzBuzzTests
 
             fizzBuzzEngine.PrintRulesResults(stringOutput, number);
             var output = stringOutput.Output;
+            var expected = "1: 12: 23: Fizz4: 45: Buzz6: Fizz7: Bar8: 89: Fizz10: Buzz11: Foo";
 
-            var ruleNames = new HashSet<string>()
-            {
-                "Bar",
-                "Foo",
-                "Fizz",
-                "Buzz"
-            };
-
-            var res = output;
-            foreach (var rule in ruleNames)
-            {
-                Assert.Contains(rule, res);
-            }
+            Assert.Equal(expected, output);
         }
 
 

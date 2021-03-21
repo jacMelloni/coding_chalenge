@@ -38,7 +38,7 @@ namespace Pyramid
 
         public static void Main(string[] args)
         {
-            Pyramid(15);
+            Pyramid(10);
             Console.ReadLine();
         }
     }
