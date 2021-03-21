@@ -1,8 +1,5 @@
 ﻿using FizzBuzz.RulesPattern;
 using FizzBuzz.SpecificationPattern;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace FizzBuzzTests

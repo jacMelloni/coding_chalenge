@@ -25,33 +25,31 @@ namespace FizzBuzz
 {
     public class FizzBuzzEngine
     {
-        public List<string> ApplyRules(List<IRule<int>> rules, int limit = 100)
+        private List<IRule<int>> rules;
+        public FizzBuzzEngine(List<IRule<int>> rules)
         {
-            List<string> ls = new List<string>();
+            this.rules = rules;
+        }
 
-            for (int number = 1; number < limit; number++)
+        public void PrintRulesResults(IOutput console, int limit = 100)
+        {
+            for (int number = 1; number <= limit; number++)
             {
                 StringBuilder output = new StringBuilder();
                 foreach (var rule in rules.Where(x => x.IsMatch(number)))
                 {
                     output.Append(rule.Apply());
                 }
+
                 var res = $"{number}: { (output.Length == 0 ? number.ToString() : output.ToString())}";
-                ls.Add(res);
+                console.Print(res);
             }
-
-            return ls;
-        }
-
-        public void PrintRulesResults(List<string> output)
-        {
-            output.ForEach(x => Console.WriteLine(x));
         }
     }
 
     public class Program
     {
-        private List<IRule<int>> CreateRules()
+        private static List<IRule<int>> CreateRules()
         {
             return new List<IRule<int>>
             {
@@ -61,13 +59,13 @@ namespace FizzBuzz
                 new FooRule()
             };
         }
+
         public static void Main(string[] args)
         {
-            Program pr = new Program();
-            FizzBuzzEngine engine = new FizzBuzzEngine();
-            var rules = pr.CreateRules();
-            var output = engine.ApplyRules(rules, 15);
-            engine.PrintRulesResults(output);
+            ConsoleOutput console = new ConsoleOutput();
+            FizzBuzzEngine engine = new FizzBuzzEngine(CreateRules());
+            engine.PrintRulesResults(console, 15);
+
             Console.ReadLine();
         }
     }

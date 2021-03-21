@@ -1,7 +1,6 @@
-﻿using Segment.Model;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Linq;
+using System.Text;
 
 /*
  
@@ -19,33 +18,28 @@ namespace Pyramid
 {
     public class Program
     {
+        private static readonly int offset = 8;
+
         private static void Pyramid(int height)
         {
-            int prev = 1;
-            int offset = 8;
+            StringBuilder spaces = new StringBuilder(string.Concat(Enumerable.Repeat(' ', height - 1 + offset)));
+            StringBuilder stars = new StringBuilder(2 * height - 1);
+            stars.Append("*");
+
             for (int row = 1; row <= height; row++)
             {
-                int spaces = height - row;
-                int numberOfStars = prev;
+                Console.Write(spaces);
+                Console.WriteLine(stars);
 
-                Console.WriteLine(new string(' ', spaces + offset) + 
-                                  string.Concat(Enumerable.Repeat("*", numberOfStars)));
-                prev += 2;
+                spaces.Remove(spaces.Length - 1, 1);
+                stars.Append("**");
             }
         }
-        
+
         public static void Main(string[] args)
         {
-            Program pr = new Program();
-            Pyramid(100);
-            IGraphicsHelper gr = new GraphicsHelper();
-
-            //FontInfo fontInfo = gr.GetCurrentFontInfo();
-            //var font = gr.CreateFont(fontInfo.FontName, fontInfo.Size);
-
-            //var s = string.Concat(Enumerable.Repeat("*", 120));
-            //var length = gr.MeasureStringWidth(s, font);
-
+            Pyramid(15);
+            Console.ReadLine();
         }
     }
 }

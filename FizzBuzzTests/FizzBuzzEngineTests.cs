@@ -10,26 +10,29 @@ namespace FizzBuzzTests
     public class FizzBuzzEngineTests
     {
         [Fact]
-        public void ApplyRules_InputNotContainsSeven_ShoudlNotContainBarRule()
+        public void PrintRulesResults_InputNotContainsSeven_ShoudlNotContainBarRule()
         {
-            var rules = Rules;
             int number = 5;
-            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine();
+            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(Rules);
+            var stringOutput = new StringOutput();
 
-            var output = fizzBuzzEngine.ApplyRules(rules, number).Where(x => x.Contains("Bar")).ToList();
-            Assert.True(output.Count == 0);
+            fizzBuzzEngine.PrintRulesResults(stringOutput, number);
+            var output = stringOutput.Output;
+
+            var expected = output.ToString().Contains("Bar");
+            Assert.False(expected);
         }
 
         [Fact]
-        public void ApplyRules_InputFitsToAllRules_ReturnsCombinationsContainingAllRules()
+        public void PrintRulesResults_InputFitsToAllRules_ReturnsCombinationsContainingAllRules()
         {
             int number = 11;
-            var rules = Rules;
-            
-            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine();           
 
-            var output = fizzBuzzEngine.ApplyRules(rules, number);
-            var expectedCount = 0;
+            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(Rules);
+            var stringOutput = new StringOutput();
+
+            fizzBuzzEngine.PrintRulesResults(stringOutput, number);
+            var output = stringOutput.Output;
 
             var ruleNames = new HashSet<string>()
             {
@@ -38,18 +41,12 @@ namespace FizzBuzzTests
                 "Fizz",
                 "Buzz"
             };
-            foreach (var ruleName in ruleNames)
+
+            var res = output.ToString();
+            foreach (var rule in ruleNames)
             {
-                foreach (var rule in output)
-                {
-                    if (rule.Contains(ruleName))
-                    {
-                        expectedCount++;
-                    }
-                }
+                Assert.Contains(rule, res);
             }
-            
-            Assert.True(expectedCount >= 4);
         }
 
 
