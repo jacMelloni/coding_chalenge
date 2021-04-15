@@ -1,6 +1,7 @@
 ﻿using FizzBuzz;
 using FizzBuzz.RulesPattern;
 using FizzBuzz.SpecificationPattern;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace FizzBuzzTests
         public void PrintRulesResults_InputNotContainsSeven_ShoudlNotContainBarRule()
         {
             int number = 5;
-            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(Rules);
+            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(CreateRules());
             var stringOutput = new StringOutput();
 
             fizzBuzzEngine.PrintRulesResults(stringOutput, number);
@@ -27,7 +28,7 @@ namespace FizzBuzzTests
         {
             int number = 11;
 
-            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(Rules);
+            FizzBuzzEngine fizzBuzzEngine = new FizzBuzzEngine(CreateRules());
             var stringOutput = new StringOutput();
 
             fizzBuzzEngine.PrintRulesResults(stringOutput, number);
@@ -37,12 +38,20 @@ namespace FizzBuzzTests
             Assert.Equal(expected, output);
         }
 
-        private List<IRule<int>> Rules =>  new List<IRule<int>>
+        private List<IRule<int>> CreateRules()
         {
-                new FizzRule(),
-                new BuzzRule(),
-                new BarRule(),
-                new FooRule()
-        };
+            Func<int, bool> fizzRule = (int number) => number % 3 == 0;
+            Func<int, bool> buzzRule = (int number) => number % 5 == 0;
+            Func<int, bool> barRule = (int number) => number % 7 == 0;
+            Func<int, bool> fooRule = (int number) => number * 10 > 100;
+
+            return new List<IRule<int>>
+            {
+                new GenericRule("Fizz", fizzRule),
+                new GenericRule("Buzz", buzzRule),
+                new GenericRule("Bar", barRule),
+                new GenericRule("Foo", fooRule),
+            };
+        }
     }
 }
