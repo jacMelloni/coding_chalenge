@@ -59,9 +59,9 @@ namespace FizzBuzz
             return new List<IRule<int>>
             {
                new GenericRule("Fizz", fizzRule),
-               new GenericRule("Buzz", fizzRule),
-               new GenericRule("Bar", fizzRule),
-               new GenericRule("Foo", fizzRule),
+               new GenericRule("Buzz", buzzRule),
+               new GenericRule("Bar", barRule),
+               new GenericRule("Foo", fooRule),
             };
         }
 
