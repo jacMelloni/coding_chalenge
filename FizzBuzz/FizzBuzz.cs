@@ -41,7 +41,7 @@ namespace FizzBuzz
                     output.Append(rule.Apply());
                 }
 
-                var res = $"{number}: { (output.Length == 0 ? number.ToString() : output.ToString())}";
+                var res = $"{number}: {(output.Length == 0 ? number.ToString() : output.ToString())}";
                 console.Print(res);
             }
         }
@@ -51,12 +51,17 @@ namespace FizzBuzz
     {
         private static List<IRule<int>> CreateRules()
         {
+            Func<int, bool> fizzRule = (int number) => number % 3 == 0;
+            Func<int, bool> buzzRule = (int number) => number % 5 == 0;
+            Func<int, bool> barRule = (int number) => number % 7 == 0;
+            Func<int, bool> fooRule = (int number) => number * 10 > 100;
+
             return new List<IRule<int>>
             {
-                new FizzRule(),
-                new BuzzRule(),
-                new BarRule(),
-                new FooRule()
+               new GenericRule("Fizz", fizzRule),
+               new GenericRule("Buzz", fizzRule),
+               new GenericRule("Bar", fizzRule),
+               new GenericRule("Foo", fizzRule),
             };
         }
 

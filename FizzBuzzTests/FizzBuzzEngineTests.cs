@@ -2,7 +2,6 @@
 using FizzBuzz.RulesPattern;
 using FizzBuzz.SpecificationPattern;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace FizzBuzzTests
@@ -38,7 +37,6 @@ namespace FizzBuzzTests
             Assert.Equal(expected, output);
         }
 
-
         private List<IRule<int>> Rules =>  new List<IRule<int>>
         {
                 new FizzRule(),
@@ -46,6 +44,5 @@ namespace FizzBuzzTests
                 new BarRule(),
                 new FooRule()
         };
-
     }
 }

@@ -1,5 +1,4 @@
 using FizzBuzz.SpecificationPattern;
-using System;
 using Xunit;
 
 namespace FizzBuzzTests
