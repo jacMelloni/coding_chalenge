@@ -40,17 +40,12 @@ namespace FizzBuzzTests
 
         private List<IRule<int>> CreateRules()
         {
-            Func<int, bool> fizzRule = (int number) => number % 3 == 0;
-            Func<int, bool> buzzRule = (int number) => number % 5 == 0;
-            Func<int, bool> barRule = (int number) => number % 7 == 0;
-            Func<int, bool> fooRule = (int number) => number * 10 > 100;
-
             return new List<IRule<int>>
             {
-                new GenericRule("Fizz", fizzRule),
-                new GenericRule("Buzz", buzzRule),
-                new GenericRule("Bar", barRule),
-                new GenericRule("Foo", fooRule),
+                new ModuloZeroRule("Fizz", 3),
+                new ModuloZeroRule("Buzz", 5),
+                new ModuloZeroRule("Bar", 7),
+                new IsLuckyRule("Lucky!")
             };
         }
     }
